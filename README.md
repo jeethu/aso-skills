@@ -164,6 +164,55 @@ git submodule add https://github.com/jeethu/aso-skills.git .agents/aso-skills
 
 Works with any tool that supports the [Agent Skills](https://agentskills.io) standard (`.agents/skills/`, `.cursor/skills/`, `.claude/skills/`, `.codex/skills/`).
 
+## Uninstallation
+
+If you installed with the `skills` CLI, pass the skill names explicitly. Use `-g` for global installs:
+
+```bash
+npx skills remove -g aso-audit keyword-research metadata-optimization competitor-analysis seasonal-aso android-aso
+```
+
+Add or remove names from the command for the exact skills you installed. To remove every ASO skill from this repo:
+
+```bash
+npx skills remove -g \
+  ab-test-store-listing android-aso app-analytics app-clips app-icon-optimization \
+  app-launch app-marketing-context app-store-featured apple-search-ads asc-metrics \
+  aso-audit competitor-analysis competitor-tracking crash-analytics in-app-events \
+  keyword-research localization market-movers market-pulse metadata-optimization \
+  monetization-strategy onboarding-optimization press-and-pr rating-prompt-strategy \
+  retention-optimization review-management screenshot-optimization seasonal-aso \
+  subscription-lifecycle ua-campaign
+```
+
+If you installed manually, delete only the copied ASO skill folders from the target skills directory. Do not remove the parent `skills/` directory if it contains unrelated skills.
+
+```bash
+SKILL_DIR=.cursor/skills  # or ~/.cursor/skills, .claude/skills, .agents/skills, .codex/skills
+
+ASO_SKILLS="
+ab-test-store-listing android-aso app-analytics app-clips app-icon-optimization
+app-launch app-marketing-context app-store-featured apple-search-ads asc-metrics
+aso-audit competitor-analysis competitor-tracking crash-analytics in-app-events
+keyword-research localization market-movers market-pulse metadata-optimization
+monetization-strategy onboarding-optimization press-and-pr rating-prompt-strategy
+retention-optimization review-management screenshot-optimization seasonal-aso
+subscription-lifecycle ua-campaign
+"
+
+for skill in $ASO_SKILLS; do
+  rm -rf "$SKILL_DIR/$skill"
+done
+```
+
+If you added this repo as a submodule, remove the submodule instead:
+
+```bash
+git submodule deinit -f .agents/aso-skills
+git rm -f .agents/aso-skills
+rm -rf .git/modules/.agents/aso-skills
+```
+
 ## Appeeky Integration
 
 Skills work standalone with general ASO knowledge. Connect [Appeeky](https://docs.appeeky.com/mcp) for real-time App Store data:
