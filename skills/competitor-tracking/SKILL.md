@@ -25,20 +25,17 @@ You set up and run ongoing competitor surveillance — catching metadata changes
 3. Ask: **How often do you want to review?** (weekly recommended)
 4. Ask: **What are you most concerned about?** (keywords, ratings, creative, pricing)
 
-Use Appeeky to identify competitors if unknown:
-```bash
-GET /v1/keywords/ranks?keyword=meditation&country=us&limit=10
-GET /v1/apps/:id/intelligence  # check competitors array
-```
+Use respectaso MCP to identify competitors if unknown:
+- `search_app_store(keyword, country, limit)` to find apps ranking for a target keyword
+- `extract_competitors_keywords(keyword, limit)` to surface related keyword/app clusters
+- `get_app(app_id, country)` to verify category, rating, screenshots, and metadata fit
 
 ## What to Track
 
 ### Metadata Changes
 
-Check weekly using Appeeky:
-```bash
-GET /v1/apps/:id  # title, subtitle, description
-```
+Check weekly using respectaso MCP:
+- `get_app(app_id, country)` for title, subtitle, description, screenshots, rating, and review count
 
 Watch for:
 - **Title changes** — new keyword being targeted, repositioning
@@ -48,10 +45,10 @@ Watch for:
 
 ### Keyword Ranking Changes
 
-```bash
-GET /v1/apps/:id/keywords  # their ranking keywords
-GET /v1/keywords/ranks?keyword=[shared keyword]  # who's ranking where
-```
+Use:
+- `get_app_keywords(app_id)` for locally tracked competitor keywords
+- `find_app_rank(app_id, keyword, country)` for shared keyword checks
+- `search_app_store(keyword, country, limit)` to see who currently appears for a keyword
 
 Watch for:
 - Keywords they're newly ranking for (they optimized for this — should you?)
@@ -60,10 +57,9 @@ Watch for:
 
 ### Ratings and Reviews
 
-```bash
-GET /v1/apps/:id/reviews?sort=recent&limit=20
-GET /v1/apps/:id  # current rating
-```
+Use:
+- `get_app_reviews(app_id, country, limit)` for recent public reviews
+- `get_app(app_id, country)` for current rating and review count
 
 Watch for:
 - Rating drop (they shipped a bad update — opportunity to highlight your stability)
@@ -72,10 +68,7 @@ Watch for:
 
 ### Chart Positions
 
-```bash
-GET /v1/market/movers?genre=[genre_id]&country=us
-GET /v1/categories/:id/top?country=us&limit=25
-```
+Respectaso MCP does not provide market-mover snapshots. Use saved weekly chart snapshots, current App Store charts, or user-provided exports, then enrich notable apps with `get_app`.
 
 Watch for:
 - A competitor entering or exiting top 10 in your category
@@ -135,27 +128,18 @@ Run a full `competitor-analysis` when:
 
 ### Manual (recommended for small teams)
 
-Set a calendar reminder. Run the Appeeky API calls above. Fill the template.
+Set a calendar reminder. Run the respectaso MCP checks above. Fill the template.
 
 ### Semi-automated
 
-Build a script that calls Appeeky weekly and diffs results:
-
-```bash
-#!/bin/bash
-APPS=("6759740679" "987654321" "111222333")
-KEY="apk_your_key"
-
-for APP_ID in "${APPS[@]}"; do
-  echo "=== $APP_ID ==="
-  curl -s "https://api.appeeky.com/v1/apps/$APP_ID" \
-    -H "X-API-Key: $KEY" | jq '.data | {title, subtitle, rating, reviewCount}'
-done
-```
+Export or save weekly respectaso MCP outputs for each tracked app:
+- `get_app` for metadata, rating, screenshots, and estimates
+- `get_app_keywords` for tracked keyword coverage
+- `get_app_reviews` for recent review themes
 
 Store results weekly and diff with the previous week's output.
 
-### Appeeky MCP (in Claude/Cursor)
+### Respectaso MCP (in Claude/Cursor)
 
 Ask your agent each Monday:
 ```

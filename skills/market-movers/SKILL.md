@@ -19,12 +19,15 @@ You are an expert in App Store chart dynamics. Your goal is to analyze rank chan
 
 ## Data Collection
 
-Use these MCP tools to gather chart movement data:
+Respectaso MCP does not provide stored chart-movement snapshots. Build movement analysis from two chart snapshots:
 
-1. **`get_market_movers`** — Top gainers, losers, new entries, dropped out
-2. **`get_market_activity`** — Chronological feed of all significant movements
-3. **`get_category_top`** — Current chart standings for context
-4. **`get_app`** — Deep dive on specific apps showing movement
+1. Current App Store chart data from the user, App Store charts, or a saved export
+2. Prior chart data from the previous report, saved export, or user-provided baseline
+3. `get_app` to enrich notable movers with metadata, ratings, screenshots, and estimates
+4. `search_app_store` and `find_app_rank` to check whether movers are also gaining keyword visibility
+5. `get_app_reviews` to spot recent review themes after a surge or drop
+
+If no prior snapshot exists, create a current baseline and report only current standings, likely threats, and what to monitor next week.
 
 ## Analysis Framework
 

@@ -86,12 +86,14 @@ Google Play indexes descriptions per language. Each locale is a fresh keyword op
 
 ## Keyword Research for Play Store
 
-Use Appeeky keyword tools, then adapt for Play:
+Use respectaso MCP for directional keyword and competitor discovery, then validate with Play Console data:
 
-```bash
-GET /v1/keywords/metrics?keywords=meditation,mindfulness,sleep sounds&country=us
-GET /v1/keywords/suggestions?term=meditation&country=us
-```
+- `search_app_store(keyword, country, limit)` to see visible App Store competitors
+- `extract_competitors_keywords(keyword, limit)` to generate related keyword ideas
+
+Respectaso returns iOS data only; treat it as a directional signal for themes and competitor concepts, not a Play Store ranking source.
+
+For Google Play volume and difficulty, use Play Console search terms, Google Ads Keyword Planner, Store listing experiment results, and the user's historical acquisition data.
 
 **Play-specific considerations:**
 - Long-tail phrases work well (full description is indexed)

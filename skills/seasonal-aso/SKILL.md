@@ -39,17 +39,15 @@ You help the user identify and act on seasonal keyword opportunities and listing
 
 ### Step 2 — Research Seasonal Keywords
 
-Use Appeeky to find volume on seasonal terms:
+Use respectaso MCP to find seasonal competitors and keyword candidates:
 
-```bash
-GET /v1/keywords/metrics?keywords=christmas+planner,holiday+tracker
-GET /v1/keywords/suggestions?term=christmas&country=us
-GET /v1/keywords/trending?country=us&days=7
-```
+- `search_app_store(keyword, country, limit)` for current seasonal search results
+- `extract_competitors_keywords(keyword, limit)` for related keyword ideas
+- `find_app_rank(app_id, keyword, country)` to track whether your app ranks for seasonal terms
 
 **Filter by:**
-- Volume spike (compare to baseline 30 days prior)
-- Difficulty < 60 preferred (seasonal keywords are crowded)
+- Demand evidence from ASA reports, App Store autocomplete, Google Trends, or historical user data
+- Competitive pressure from current search results and competitor metadata
 - Relevance to your app's core function
 
 ### Step 3 — Plan Metadata Changes
@@ -94,12 +92,12 @@ Timeline (count back from event date):
    Lead time needed: [X days]
 
 Keyword Opportunities:
-  High priority (volume spike, <60 difficulty):
-  - "[keyword]" — vol [N], diff [N]
-  - "[keyword]" — vol [N], diff [N]
+  High priority (strong demand evidence, manageable competition):
+  - "[keyword]" — evidence [source], competition [low/med/high]
+  - "[keyword]" — evidence [source], competition [low/med/high]
 
   Secondary (relevant but competitive):
-  - "[keyword]" — vol [N], diff [N]
+  - "[keyword]" — evidence [source], competition [low/med/high]
 
 Metadata Recommendations:
   Keyword field: [current] → [proposed — 100 chars]
@@ -118,7 +116,7 @@ Timeline:
 
 | Factor | Seasonal | Evergreen |
 |--------|----------|-----------|
-| Volume | Temporarily very high | Stable |
+| Demand | Temporarily very high | Stable |
 | Competition | Very high at peak | Moderate |
 | Risk | Rankings drop after peak | Consistent |
 | Reward | Spike in installs | Sustained growth |
@@ -128,7 +126,7 @@ Timeline:
 ## Trending Moments (Non-Calendar)
 
 For viral/trending moments (news events, viral content, app store trends):
-1. Use `GET /v1/keywords/trending?country=us&days=3` to spot emerging terms
+1. Use App Store autocomplete, ASA search term reports, Google Trends, social/news context, and `search_app_store` to spot emerging terms
 2. Act within 24–48 hours (trending windows are short)
 3. Only update promotional text (instant, no review)
 4. Revert after the trend fades (typically 3–7 days)

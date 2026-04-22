@@ -1,21 +1,21 @@
 ---
 name: asc-metrics
-description: When the user wants to analyze their own app's actual performance data from App Store Connect — real downloads, revenue, IAP, subscriptions, trials, or country breakdowns synced via Appeeky Connect. Use when the user asks about "my downloads", "my revenue", "how is my app performing", "ASC data", "sales and trends", "my subscription numbers", "App Store Connect metrics", or wants to compare periods or top markets. For third-party app estimates, see app-analytics. For subscription analytics depth, see monetization-strategy.
+description: When the user wants to analyze their own app's actual performance data from App Store Connect — real downloads, revenue, IAP, subscriptions, trials, or country breakdowns. Use when the user asks about "my downloads", "my revenue", "how is my app performing", "ASC data", "sales and trends", "my subscription numbers", "App Store Connect metrics", or wants to compare periods or top markets. For third-party app estimates, see app-analytics. For subscription analytics depth, see monetization-strategy.
 metadata:
   version: 1.0.0
 ---
 
 # ASC Metrics
 
-You analyze the user's **official App Store Connect data** synced into Appeeky — exact downloads, revenue, IAP, subscriptions, and trials. This is first-party data, not estimates.
+You analyze the user's **official App Store Connect data** — exact downloads, revenue, IAP, subscriptions, and trials from ASC exports, App Analytics, Sales and Trends, or user-provided CSV/API output. This is first-party data, not estimates.
 
 ## Prerequisites
 
-- Appeeky account with ASC connected (Settings → Integrations → App Store Connect)
-- Indie plan or higher (2 credits per request)
-- Data syncs nightly; up to 90 days of history available
+- App Store Connect access, exported reports, or an existing ASC API/CLI workflow
+- Date range covering the requested analysis and, when comparing periods, an equal prior window
+- App identifier, SKU, bundle ID, or app name to match the user's app
 
-If ASC is not connected, prompt the user to connect it at [appeeky.com/settings](https://appeeky.com) and return.
+If first-party ASC data is not available, ask the user for an export or clarify that only estimates and public signals can be analyzed.
 
 ## Initial Assessment
 
@@ -26,29 +26,24 @@ If ASC is not connected, prompt the user to connect it at [appeeky.com/settings]
 
 ## Fetching Data
 
-### Step 1 — List available apps
+### Step 1 — Identify the app
 
-```bash
-GET /v1/connect/metrics/apps
-```
+Match the user's app by App Store Connect app name, Apple ID, SKU, or bundle ID.
 
-Match the user's app to an `app_apple_id` if not already known.
+Use respectaso MCP only for public context when helpful:
+- `get_app(app_id, country)` for public metadata, ratings, and estimates
+- `find_app_rank(app_id, keyword, country)` when diagnosing ASO-related traffic changes
 
-### Step 2 — Get overview (portfolio)
+### Step 2 — Load portfolio data
 
-```bash
-GET /v1/connect/metrics?from=YYYY-MM-DD&to=YYYY-MM-DD
-```
+Use the user's App Store Connect export/API output for downloads, proceeds, subscriptions, IAP, trials, countries, and daily rows.
 
-### Step 3 — Get app detail (single app)
+### Step 3 — Load app detail
 
-```bash
-GET /v1/connect/metrics/apps/:appId?from=YYYY-MM-DD&to=YYYY-MM-DD
-```
-
-Response includes: `daily[]`, `countries[]`, `totals`.
-
-See full API reference: [appeeky-connect.md](../../tools/integrations/appeeky-connect.md)
+For a single app, filter the data to the chosen app and normalize it into three shapes before analysis:
+- a daily series with date, downloads, proceeds, subscriptions, trials, and IAP counts
+- a country breakdown with downloads and proceeds per country
+- a totals summary covering the full date range
 
 ## Analysis Frameworks
 
@@ -71,14 +66,14 @@ Fetch two equal-length windows and compare:
 
 ### Daily Trend Analysis
 
-From `daily[]`, identify:
+From the daily series, identify:
 - **Spikes** — Did a feature, update, or press trigger them?
 - **Drops** — Correlate with app updates, seasonality, or algorithm changes
 - **Trend direction** — 7-day moving average vs prior 7 days
 
 ### Country Breakdown
 
-Sort `countries[]` by downloads and revenue:
+Sort the country breakdown by downloads and revenue:
 1. **Top 5 by downloads** — Are you investing in ASO for these markets?
 2. **Top 5 by revenue** — Higher ARPD (avg revenue per download) = prioritize ASO
 3. **High downloads, low revenue** — Markets with weak monetization

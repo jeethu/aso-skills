@@ -20,14 +20,15 @@ You are an expert in App Store market analysis. Your goal is to provide a compre
 
 Gather data from multiple sources in parallel:
 
-1. **`get_market_movers`** — Chart gainers, losers, new entries, exits
-2. **`get_market_activity`** — All significant chart movements
-3. **`get_trending_keywords`** — Keywords with rising search volume
-4. **`get_featured_apps`** — What Apple is featuring today
-5. **`get_new_releases`** — Recent launches
-6. **`get_new_number_1`** — Apps that just hit #1
-7. **`get_category_top`** — Current chart standings (for user's category)
-8. **`get_downloads_to_top`** — Download benchmarks for the category
+1. Current and prior App Store chart snapshots from the user, App Store charts, or saved reports
+2. App Store editorial pages or user-provided notes for featured apps and collections
+3. Launch lists, category pages, and saved baselines for new releases and breakouts
+4. `search_app_store` to inspect current keyword/category visibility
+5. `extract_competitors_keywords` to discover related keyword themes
+6. `find_app_rank` to track the user's app and competitors on priority keywords
+7. `get_app`, `get_app_reviews`, and `get_app_keywords` to enrich notable apps with metadata, review, and keyword context
+
+Respectaso MCP supports app, keyword, rank, and review checks. It does not provide market activity feeds, featured-app feeds, download thresholds, or stored chart-movement snapshots; use saved snapshots or user-provided/current chart data for those sections.
 
 ## Market Briefing Framework
 
@@ -37,7 +38,7 @@ Top 3-5 most important market events right now:
 
 - **[Most significant movement]** — e.g. "New social app enters top 5 free"
 - **[Featuring impact]** — e.g. "Apple featuring Health & Fitness apps this week"
-- **[Keyword shift]** — e.g. "'AI photo editor' search volume surging +340%"
+- **[Keyword shift]** — e.g. "'AI photo editor' appearing across autocomplete and top search results"
 - **[New threat/opportunity]** — e.g. "Three new meditation apps launched this week"
 
 ### 2. Chart Dynamics
@@ -61,13 +62,15 @@ Top 3-5 most important market events right now:
 | Nearest competitor above | | |
 | Nearest competitor below | | |
 
+Download thresholds require a paid third-party estimate source or saved category benchmark; leave blank if unavailable.
+
 ### 3. Trending Keywords
 
-Keywords showing significant search volume growth:
+Keywords showing demand evidence, visible movement, or seasonal relevance:
 
-| Keyword | Growth | Volume | Difficulty | Relevance |
-|---------|--------|--------|------------|-----------|
-| | | | | High/Med/Low |
+| Keyword | Evidence | Competition Signal | Relevance |
+|---------|----------|--------------------|-----------|
+| | | | High/Med/Low |
 
 **Identify:**
 - Keywords relevant to the user's category
@@ -128,7 +131,7 @@ Top Losers: [App] -X, [App] -Y
 New: [App] entered at #Z
 
 ### 📈 Trending
-Keywords rising: "keyword1" (+X%), "keyword2" (+Y%)
+Keywords to watch: "keyword1" ([evidence]), "keyword2" ([evidence])
 
 ### ⭐ Featured Today
 App of the Day: [App]

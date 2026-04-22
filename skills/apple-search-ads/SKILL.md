@@ -79,11 +79,12 @@ Account
 - High-volume generic terms: "meditation app", "habit tracker", "budget planner"
 - Long-tail terms: "meditation app for anxiety", "daily habit tracker free"
 
-Use Appeeky to validate volume and difficulty:
-```bash
-GET /v1/keywords/metrics?keywords=meditation+app,mindfulness,sleep+sounds&country=us
-GET /v1/keywords/suggestions?term=meditation&country=us
-```
+Use respectaso MCP to validate the visible App Store surface:
+- `search_app_store(keyword, country, limit)` to see current organic competitors
+- `find_app_rank(app_id, keyword, country)` to compare your organic rank against paid targets
+- `extract_competitors_keywords(keyword, limit)` to expand related keyword ideas
+
+Use Apple Search Ads search term reports, Search Match discoveries, impression share, CPT, and conversion data for volume and bid decisions.
 
 ### Negative Keywords
 

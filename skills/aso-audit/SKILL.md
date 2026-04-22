@@ -18,12 +18,15 @@ You are an expert in App Store Optimization with deep knowledge of Apple's and G
 
 ## Data Collection
 
-If Appeeky MCP or API is available, fetch:
-- App metadata (title, subtitle, description, screenshots, ratings)
-- Current keyword rankings
-- Competitor data (top 3-5 in same category)
-- Category chart position
-- Review sentiment
+If respectaso MCP is available, fetch:
+- Full ASO audit with `aso_full_audit`
+- App metadata, screenshots, ratings, and estimates with `get_app`
+- Recent public reviews with `get_app_reviews`
+- Locally tracked keywords with `get_app_keywords`
+- Current rank for target keywords with `find_app_rank`
+- Competitor candidates with `search_app_store` and `extract_competitors_keywords`
+
+For market-wide chart position, use current App Store/Play chart data or user-provided exports; respectaso is strongest for app, keyword, and review-level checks.
 
 If not available, ask the user to provide their current metadata.
 
