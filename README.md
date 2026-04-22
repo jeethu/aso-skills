@@ -29,11 +29,11 @@ Each skill contains battle-tested frameworks, scoring rubrics, and output templa
 
 ## Quick Start
 
-**Cursor** — Settings (Cmd+Shift+J) → Rules → Add Rule → Remote Rule (Github) → paste `https://github.com/eronred/aso-skills`
+**Cursor** — Settings (Cmd+Shift+J) → Rules → Add Rule → Remote Rule (Github) → paste `https://github.com/jeethu/aso-skills`
 
-**Claude Code** — `npx skills add eronred/aso-skills`
+**Claude Code** — `npx skills add jeethu/aso-skills`
 
-**Manual** — `git clone https://github.com/eronred/aso-skills.git && cp -r aso-skills/skills/* .cursor/skills/`
+**Manual** — `git clone https://github.com/jeethu/aso-skills.git && cp -r aso-skills/skills/* .cursor/skills/`
 
 Then ask your agent:
 
@@ -144,7 +144,7 @@ Skills reference each other — `aso-audit` might suggest running `keyword-resea
 
 | Method | Command |
 |--------|---------|
-| GitHub Import | Settings → Rules → Add Rule → Remote Rule → `https://github.com/eronred/aso-skills` |
+| GitHub Import | Settings → Rules → Add Rule → Remote Rule → `https://github.com/jeethu/aso-skills` |
 | Project-level | `cp -r aso-skills/skills/* .cursor/skills/` |
 | Global | `cp -r aso-skills/skills/* ~/.cursor/skills/` |
 
@@ -152,14 +152,14 @@ Skills reference each other — `aso-audit` might suggest running `keyword-resea
 
 | Method | Command |
 |--------|---------|
-| CLI | `npx skills add eronred/aso-skills` |
-| Specific skills | `npx skills add eronred/aso-skills --skill aso-audit keyword-research` |
+| CLI | `npx skills add jeethu/aso-skills` |
+| Specific skills | `npx skills add jeethu/aso-skills --skill aso-audit keyword-research` |
 | Manual | `cp -r aso-skills/skills/* .claude/skills/` |
 
 ### Any Agent
 
 ```bash
-git submodule add https://github.com/eronred/aso-skills.git .agents/aso-skills
+git submodule add https://github.com/jeethu/aso-skills.git .agents/aso-skills
 ```
 
 Works with any tool that supports the [Agent Skills](https://agentskills.io) standard (`.agents/skills/`, `.cursor/skills/`, `.claude/skills/`, `.codex/skills/`).
